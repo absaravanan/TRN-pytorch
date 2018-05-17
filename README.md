@@ -71,12 +71,13 @@ python test_video.py --arch BNInception --dataset something \
     --weight pretrain/TRN_something_RGB_BNInception_TRNmultiscale_segment8_best.pth.tar \
     --frame_folder sample_data/bolei_juggling
 
-RESULT ON sample_data/bolei_juggling
-0.244 -> Throwing something in the air and catching it
-0.186 -> Throwing something in the air and letting it fall
-0.094 -> Showing a photo of something to the camera
-0.063 -> Hitting something with something
-0.040 -> Holding something in front of something
+RESULT ON /home/archimedes/Downloads/VID_20180517_164640.mp4
+0.635 -> Thumb Up
+0.360 -> Doing other things
+0.001 -> Thumb Down
+0.001 -> Zooming Out With Two Fingers
+0.001 -> Pulling Hand In
+
 
 ```
 
