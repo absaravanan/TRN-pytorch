@@ -34,7 +34,11 @@ cd sample_data
 
 * Test pretrained model on mp4 video file with jester dataset
 
-![alt text](sample_data/abs_thumbs_up.gif "Thumbs UP")
+<p align="center">
+  <img src="sample_data/abs_thumbs_up.gif">
+</p>
+
+#![alt text](sample_data/abs_thumbs_up.gif "Thumbs UP")
 
 
 ```bash
