@@ -100,4 +100,7 @@ ENV/
 # mypy
 .mypy_cache/
 
+#data
+pretrain/TRN_jester_RGB_BNInception_TRNmultiscale_segment8_best.pth.tar
+
 .idea
