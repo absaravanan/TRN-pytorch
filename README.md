@@ -5,7 +5,7 @@ We release the code of the [Temporal Relation Networks](http://relation.csail.mi
 **Note**: always use `git clone --recursive https://github.com/metalbubble/TRN-pytorch` to clone this project
 Otherwise you will not be able to use the inception series CNN architecture.
 
-![framework](http://relation.csail.mit.edu/framework_trn.png)
+
 
 ### Data preparation
 Download the [something-something dataset](https://www.twentybn.com/datasets/something-something) or [jester dataset](https://www.twentybn.com/datasets/something-something) or [charades dataset](http://allenai.org/plato/charades/). Decompress them into some folder. Use [process_dataset.py](process_dataset.py) to generate the index files for train, val, and test split. Finally properly set up the train, validatin, and category meta files in [datasets_video.py](datasets_video.py).
@@ -13,6 +13,45 @@ Download the [something-something dataset](https://www.twentybn.com/datasets/som
 ### Code
 
 Core code to implement the Temporal Relation Network module is [TRNmodule](TRNmodule.py). It is plug-and-play on top of the TSN.
+
+
+
+### Pretrained models and demo code
+
+* Download pretrained models on [Something-Something](https://www.twentybn.com/datasets/something-something), [Jester](https://www.twentybn.com/datasets/jester), and [Moments in Time](http://moments.csail.mit.edu/)
+
+```bash
+cd pretrain
+./download_models.sh
+```
+
+* Download sample video and extracted frames. There will be mp4 video file and a folder containing the RGB frames for that video.
+
+```bash
+cd sample_data
+./download_sample_data.sh
+```
+
+* Test pretrained model on mp4 video file with jester dataset
+
+![alt text](sample_data/abs_thumbs_up.gif "Thumbs UP")
+
+
+```bash
+python test_video.py --arch BNInception --dataset jester     --weight pretrain/TRN_jester_RGB_BNInception_TRNmultiscale_segment8_best.pth.tar /
+    --video_file sample_data/VID_20180517_164640.mp4 --rendered_output sample_data/predicted_video.mp4
+
+RESULT ON /home/archimedes/Downloads/VID_20180517_164640.mp4
+0.635 -> Thumb Up
+0.360 -> Doing other things
+0.001 -> Thumb Down
+0.001 -> Zooming Out With Two Fingers
+0.001 -> Pulling Hand In
+
+```
+
+The command above uses `ffmpeg` to extract frames from the supplied video `--video_file` and optionally generates a new video `--rendered_output` from the frames used to make the prediction with the predicted category in the top-left corner.
+
 
 ### Training and Testing
 
@@ -45,51 +84,7 @@ python test_models.py something RGB model/TRN_something_RGB_BNInception_TRNmulti
    --arch BNInception --crop_fusion_type TRNmultiscale --test_segments 8
 ```
 
-### Pretrained models and demo code
 
-* Download pretrained models on [Something-Something](https://www.twentybn.com/datasets/something-something), [Jester](https://www.twentybn.com/datasets/jester), and [Moments in Time](http://moments.csail.mit.edu/)
-
-```bash
-cd pretrain
-./download_models.sh
-```
-
-* Download sample video and extracted frames. There will be mp4 video file and a folder containing the RGB frames for that video.
-
-```bash
-cd sample_data
-./download_sample_data.sh
-```
-
-* Test pretrained model on mp4 video file with jester
-
-The sample video is the following 
-![alt text](sample_data/abs_thumbs_up.gif "Thumbs UP")
-
-
-
-```bash
-python test_video.py --arch BNInception --dataset jester     --weight pretrain/TRN_jester_RGB_BNInception_TRNmultiscale_segment8_best.pth.tar     --video_file /home/archimedes/Downloads/VID_20180517_164640.mp4 --rendered_output sample_data/predicted_video.mp4
-
-RESULT ON /home/archimedes/Downloads/VID_20180517_164640.mp4
-0.635 -> Thumb Up
-0.360 -> Doing other things
-0.001 -> Thumb Down
-0.001 -> Zooming Out With Two Fingers
-0.001 -> Pulling Hand In
-
-
-```
-
-
-The command above uses `ffmpeg` to extract frames from the supplied video `--video_file` and optionally generates a new video `--rendered_output` from the frames used to make the prediction with the predicted category in the top-left corner.
-
-
-### TODO
-
-* TODO: Web-cam demo script
-* TODO: Visualization script
-* TODO: class-aware data augmentation
 
 ### Reference:
 B. Zhou, A. Andonian, and A. Torralba. Temporal Relational Reasoning in Videos. arXiv:1711.08496, 2017. [PDF](https://arxiv.org/pdf/1711.08496.pdf)
@@ -103,4 +98,4 @@ B. Zhou, A. Andonian, and A. Torralba. Temporal Relational Reasoning in Videos. 
 ```
 
 ### Acknowledgement
-Our temporal relation network is plug-and-play on top of the [TSN-Pytorch](https://github.com/yjxiong/temporal-segment-networks), but it could be extended to other network architectures easily. We thank Yuanjun Xiong for releasing TSN-Pytorch codebase. Something-something dataset and Jester dataset are from [TwentyBN](https://www.twentybn.com/), we really appreciate their effort to build such nice video datasets. Please refer to [their dataset website](https://www.twentybn.com/datasets/something-something) for the proper usage of the data.
+This repo is heavily influenced from metalbubble/TRN-pytorch. This temporal relation network is plug-and-play on top of the [TSN-Pytorch](https://github.com/yjxiong/temporal-segment-networks), but it could be extended to other network architectures easily. We thank Yuanjun Xiong for releasing TSN-Pytorch codebase. Something-something dataset and Jester dataset are from [TwentyBN](https://www.twentybn.com/), we really appreciate their effort to build such nice video datasets. Please refer to [their dataset website](https://www.twentybn.com/datasets/something-something) for the proper usage of the data.
