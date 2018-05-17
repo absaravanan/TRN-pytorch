@@ -25,13 +25,6 @@ cd pretrain
 ./download_models.sh
 ```
 
-* Download sample video and extracted frames. There will be mp4 video file and a folder containing the RGB frames for that video.
-
-```bash
-cd sample_data
-./download_sample_data.sh
-```
-
 * Test pretrained model on mp4 video file with jester dataset
 
 <p align="center">
