@@ -38,8 +38,6 @@ cd sample_data
   <img src="sample_data/abs_thumbs_up.gif">
 </p>
 
-#![alt text](sample_data/abs_thumbs_up.gif "Thumbs UP")
-
 
 ```bash
 python test_video.py --arch BNInception --dataset jester     --weight pretrain/TRN_jester_RGB_BNInception_TRNmultiscale_segment8_best.pth.tar /
